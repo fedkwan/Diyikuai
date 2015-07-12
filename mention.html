@@ -1,0 +1,57 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<title>Google 桌面通知</title>
+<meta name="generator" content="editplus" />
+<meta name="author" content="" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv='content-type' content='text/html; charset=utf-8' />
+<style>
+	.desktop_pic { display:block; position:fixed; bottom:10px; right:8px; width:365px; height:85;}
+</style>
+</head>
+<body>
+
+<img class="desktop_pic" src="desktop.png" width="364" height="84" style="display:none;" onclick="init()">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script type='text/javascript'>
+function init() { 
+	if (window.webkitNotifications) { 
+		window.webkitNotifications.requestPermission();
+		$(".desktop_pic").hide();
+	} 
+} 
+
+function pop() {
+	var notification_test = window.webkitNotifications.createNotification("http://images.cnblogs.com/cnblogs_com/flyingzl/268702/r_1.jpg", '卖家给你优惠，发布了新宝贝！', '这样就省了一块，赶紧点进来看看吧！');
+	notification_test.display = function() {}
+	notification_test.onerror = function() {}
+	notification_test.onclose = function() {}
+	notification_test.onclick = function() {this.cancel();}
+
+	notification_test.replaceId = 'Meteoric';
+ 
+	notification_test.show();
+
+	/*var tempPopup = window.webkitNotifications.createHTMLNotification(["http://www.baidu.com/", "http://www.soso.com"][Math.random() >= 0.5 ? 0 : 1]);
+	tempPopup.replaceId = "Meteoric_cry";
+	tempPopup.show();*/
+}
+
+$(document).ready(function(){
+	var int=self.setInterval("pop()", 3000)
+	if (window.webkitNotifications) {
+		if (window.webkitNotifications.checkPermission() == 0) {
+			
+		}
+		else
+		{
+			//显示桌面通知允许tips
+			$(".desktop_pic").show();
+		}
+	}
+});
+</script>
+</body>
+</html>
